@@ -1,6 +1,7 @@
 
 import { NextUIProvider } from "@nextui-org/system";
 import "../ui/styles/globals.css";
+import { NavBar } from "../ui/components/commons/navbar";
 
 export const metadata = {
   title: "Pet Lovers ",
@@ -14,8 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body >
         <NextUIProvider>
+          <NavBar/>
             {children}
         </NextUIProvider>
       </body>
