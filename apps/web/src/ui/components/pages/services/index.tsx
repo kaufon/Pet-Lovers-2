@@ -1,6 +1,6 @@
-
 "use client";
 import {
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -16,6 +16,7 @@ export class ServicesPage extends Component<any, any> {
   render() {
     return (
       <>
+        <Button color="default">Adicionar Serviço</Button>
         <Table selectionMode="single" shadow="md">
           <TableHeader>
             <TableColumn>ID</TableColumn>

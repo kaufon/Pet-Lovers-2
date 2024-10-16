@@ -16,6 +16,7 @@ export class DashBoardPage extends Component<any, any> {
   render() {
     return (
       <>
+        <Button color="default">Adicionar Cliente</Button>
         <Table selectionMode="single" shadow="md">
           <TableHeader>
             <TableColumn>ID</TableColumn>

@@ -16,6 +16,7 @@ export class PetsPage extends Component<any, any> {
   render() {
     return (
       <>
+        <Button color="default">Adicionar Pet</Button>
         <Table selectionMode="single" shadow="md">
           <TableHeader>
             <TableColumn>ID do Dono</TableColumn>
