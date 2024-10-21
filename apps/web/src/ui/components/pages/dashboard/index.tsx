@@ -11,12 +11,27 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { CircleDashed, DollarSign, Pen, PlusIcon } from "lucide-react";
+import { RegisterClientForm } from "./register-client-form";
 
 export class DashBoardPage extends Component<any, any> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isModalOpen: false,
+    };
+  }
+  openModal = () => {
+    this.setState({ isModalOpen: true });
+  };
+  closeModal = () => {
+    this.setState({ isModalOpen: false });
+  };
   render() {
     return (
       <>
-        <Button color="default">Adicionar Cliente</Button>
+        <Button color="default" onClick={this.openModal}>
+          Adicionar Cliente
+        </Button>
         <Table selectionMode="single" shadow="md">
           <TableHeader>
             <TableColumn>ID</TableColumn>
@@ -44,6 +59,10 @@ export class DashBoardPage extends Component<any, any> {
             </TableRow>
           </TableBody>
         </Table>
+        <RegisterClientForm
+          isOpen={this.state.isModalOpen}
+          isClosed={this.closeModal}
+        />
       </>
     );
   }
