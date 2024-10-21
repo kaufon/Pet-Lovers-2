@@ -11,12 +11,31 @@ import {
 } from "@nextui-org/react";
 import { Pen } from "lucide-react";
 import { Component, ReactNode } from "react";
+import { RegisterProductForm } from "./register-product-formn";
 
 export class ProductsPage extends Component<any, any> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isModalOpen: false,
+    };
+  }
+  closeModal = () => {
+    this.setState({
+      isModalOpen: false,
+    });
+  };
+  openModal = () => {
+    this.setState({
+      isModalOpen: true,
+    });
+  };
   render() {
     return (
       <>
-        <Button color="default">Adicionar Produto</Button>
+        <Button color="default" onClick={this.openModal}>
+          Adicionar Produto
+        </Button>
         <Table selectionMode="single" shadow="md">
           <TableHeader>
             <TableColumn>ID</TableColumn>
@@ -39,6 +58,10 @@ export class ProductsPage extends Component<any, any> {
             </TableRow>
           </TableBody>
         </Table>
+        <RegisterProductForm
+          isOpen={this.state.isModalOpen}
+          isClosed={this.closeModal}
+        />
       </>
     );
   }
