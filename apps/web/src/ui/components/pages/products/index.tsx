@@ -13,13 +13,13 @@ import { Pen, Trash } from "lucide-react";
 import { Component } from "react";
 import { AlertModal } from "../../commons/alert-modal";
 import { RegisterProductForm } from "./register-product-formn";
-
 export class ProductsPage extends Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
       isModalOpen: false,
       isAlertModalOpen: false,
+      isRegister: true, // Track whether we're registering or updating
     };
   }
 
@@ -29,9 +29,10 @@ export class ProductsPage extends Component<any, any> {
     });
   };
 
-  openModal = () => {
+  openModal = (isRegister = true) => {
     this.setState({
       isModalOpen: true,
+      isRegister, // Set the mode based on the button clicked
     });
   };
 
@@ -46,7 +47,7 @@ export class ProductsPage extends Component<any, any> {
   render() {
     return (
       <>
-        <Button color="default" onClick={this.openModal}>
+        <Button color="default" onClick={() => this.openModal(true)}>
           Adicionar Produto
         </Button>
         <Table selectionMode="single" shadow="md">
@@ -63,8 +64,8 @@ export class ProductsPage extends Component<any, any> {
               <TableCell>Preço do produto</TableCell>
               <TableCell>
                 <div className="flex flex-row gap-3 text-zinc-400">
-                  <Tooltip content="Editar  ">
-                    <Pen />
+                  <Tooltip content="Editar">
+                    <Pen onClick={() => this.openModal(false)} />
                   </Tooltip>
                   <Tooltip content="Deletar">
                     <Trash onClick={this.openAlertModal} />
@@ -77,6 +78,7 @@ export class ProductsPage extends Component<any, any> {
         <RegisterProductForm
           isOpen={this.state.isModalOpen}
           isClosed={this.closeModal}
+          isRegister={this.state.isRegister} 
         />
         <AlertModal
           isOpen={this.state.isAlertModalOpen}
@@ -86,4 +88,3 @@ export class ProductsPage extends Component<any, any> {
     );
   }
 }
-
