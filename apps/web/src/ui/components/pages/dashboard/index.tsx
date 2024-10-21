@@ -10,22 +10,39 @@ import {
   TableRow,
   Tooltip,
 } from "@nextui-org/react";
-import { CircleDashed, DollarSign, Pen, PlusIcon } from "lucide-react";
+import { CircleDashed, DollarSign, Pen, PlusIcon, Trash } from "lucide-react";
 import { RegisterClientForm } from "./register-client-form";
+import { AlertModal } from "../../commons/alert-modal";
+import { ConsumeForm } from "./consume-form";
 
 export class DashBoardPage extends Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
       isModalOpen: false,
+      isAlertModalOpen: false,
+      isConsumeModalOpen: false,
     };
   }
   openModal = () => {
     this.setState({ isModalOpen: true });
   };
+  openAlertModal = () => {
+    this.setState({ isAlertModalOpen: true });
+  };
+  closeAlertModal = () => {
+    this.setState({ isAlertModalOpen: false });
+  };
   closeModal = () => {
     this.setState({ isModalOpen: false });
   };
+  openConsumeModal = () => {
+    this.setState({ isConsumeModalOpen: true });
+  };
+  closeConsumeModal = () => {
+    this.setState({ isConsumeModalOpen: false });
+  };
+
   render() {
     return (
       <>
@@ -49,10 +66,13 @@ export class DashBoardPage extends Component<any, any> {
               <TableCell>
                 <div className="flex flex-row gap-3 text-zinc-400">
                   <Tooltip content="Consumir ">
-                    <DollarSign />
+                    <DollarSign onClick={this.openConsumeModal} />
                   </Tooltip>
                   <Tooltip content="Editar  ">
                     <Pen />
+                  </Tooltip>
+                  <Tooltip content="Deletat">
+                    <Trash onClick={this.openAlertModal} />
                   </Tooltip>
                 </div>
               </TableCell>
@@ -62,6 +82,14 @@ export class DashBoardPage extends Component<any, any> {
         <RegisterClientForm
           isOpen={this.state.isModalOpen}
           isClosed={this.closeModal}
+        />
+        <ConsumeForm
+          isOpen={this.state.isConsumeModalOpen}
+          isClosed={this.closeConsumeModal}
+        />
+        <AlertModal
+          isOpen={this.state.isAlertModalOpen}
+          isClosed={this.closeAlertModal}
         />
       </>
     );
