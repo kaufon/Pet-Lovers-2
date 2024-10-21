@@ -11,12 +11,30 @@ import {
 } from "@nextui-org/react";
 import { Pen } from "lucide-react";
 import { Component, ReactNode } from "react";
+import { RegisterServiceForm } from "./register-service-form";
 
 export class ServicesPage extends Component<any, any> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isModalOpen: false,
+    };
+  }
+  closeModal = () => {
+    this.setState({
+      isModalOpen: false,
+    });
+  };
+  openModal = () => {
+    this.setState({
+      isModalOpen: true,
+    });
+  };
+
   render() {
     return (
       <>
-        <Button color="default">Adicionar Serviço</Button>
+        <Button color="default" onClick={this.openModal}>Adicionar Serviço</Button>
         <Table selectionMode="single" shadow="md">
           <TableHeader>
             <TableColumn>ID</TableColumn>
@@ -39,6 +57,10 @@ export class ServicesPage extends Component<any, any> {
             </TableRow>
           </TableBody>
         </Table>
+        <RegisterServiceForm
+          isOpen={this.state.isModalOpen}
+          isClosed={this.closeModal}
+        />
       </>
     );
   }
