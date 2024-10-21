@@ -7,12 +7,22 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
+import { interpolate } from "framer-motion";
 import { X } from "lucide-react";
 import React, { Component, ReactNode } from "react";
 
-export class RegisterClientForm extends Component<any, any> {
+interface RegisterClientFormProps {
+  isOpen: boolean;
+  isClosed: () => void;
+  isRegister?: boolean;
+}
+export class RegisterClientForm extends Component<RegisterClientFormProps> {
+  static defaultProps = {
+    isRegister: true,
+  };
   render() {
-    const { isOpen, isClosed } = this.props;
+    const { isOpen, isClosed, isRegister } = this.props;
+    const headerText = isRegister ? "Registar Cliente" : "Atualizar Cliente";
     return (
       <>
         <Modal isOpen={isOpen} onClose={isClosed}>
@@ -21,7 +31,7 @@ export class RegisterClientForm extends Component<any, any> {
               <div>
                 <ModalHeader>
                   <div className="w-full flex justify-between items-center">
-                    <h1>Registar Cliente</h1>
+                    <h1>{headerText}</h1>
                   </div>
                 </ModalHeader>
                 <ModalBody>

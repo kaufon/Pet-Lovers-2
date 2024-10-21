@@ -10,7 +10,7 @@ import {
   TableRow,
   Tooltip,
 } from "@nextui-org/react";
-import { CircleDashed, DollarSign, Pen, PlusIcon, Trash } from "lucide-react";
+import { DollarSign, Pen, Trash } from "lucide-react";
 import { RegisterClientForm } from "./register-client-form";
 import { AlertModal } from "../../commons/alert-modal";
 import { ConsumeForm } from "./consume-form";
@@ -22,31 +22,40 @@ export class DashBoardPage extends Component<any, any> {
       isModalOpen: false,
       isAlertModalOpen: false,
       isConsumeModalOpen: false,
+      isEditing: false, // New state to track if editing
     };
   }
-  openModal = () => {
-    this.setState({ isModalOpen: true });
+
+  openModal = (isEditing = false) => {
+    this.setState({ isModalOpen: true, isEditing });
   };
+
   openAlertModal = () => {
     this.setState({ isAlertModalOpen: true });
   };
+
   closeAlertModal = () => {
     this.setState({ isAlertModalOpen: false });
   };
+
   closeModal = () => {
-    this.setState({ isModalOpen: false });
+    this.setState({ isModalOpen: false, isEditing: false });
   };
+
   openConsumeModal = () => {
     this.setState({ isConsumeModalOpen: true });
   };
+
   closeConsumeModal = () => {
     this.setState({ isConsumeModalOpen: false });
   };
 
   render() {
+    const { isEditing } = this.state; // Destructure isEditing for easier access
+
     return (
       <>
-        <Button color="default" onClick={this.openModal}>
+        <Button color="default" onClick={() => this.openModal(false)}>
           Adicionar Cliente
         </Button>
         <Table selectionMode="single" shadow="md">
@@ -69,9 +78,9 @@ export class DashBoardPage extends Component<any, any> {
                     <DollarSign onClick={this.openConsumeModal} />
                   </Tooltip>
                   <Tooltip content="Editar  ">
-                    <Pen />
+                    <Pen onClick={() => this.openModal(true)} />
                   </Tooltip>
-                  <Tooltip content="Deletat">
+                  <Tooltip content="Deletar">
                     <Trash onClick={this.openAlertModal} />
                   </Tooltip>
                 </div>
@@ -82,6 +91,7 @@ export class DashBoardPage extends Component<any, any> {
         <RegisterClientForm
           isOpen={this.state.isModalOpen}
           isClosed={this.closeModal}
+          isRegister={!isEditing} 
         />
         <ConsumeForm
           isOpen={this.state.isConsumeModalOpen}
