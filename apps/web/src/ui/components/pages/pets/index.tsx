@@ -1,5 +1,4 @@
 "use client";
-import React, { Component } from "react";
 import {
   Button,
   Table,
@@ -10,13 +9,29 @@ import {
   TableRow,
   Tooltip,
 } from "@nextui-org/react";
-import { CircleDashed, DollarSign, Pen, PlusIcon } from "lucide-react";
+import { Pen } from "lucide-react";
+import { Component } from "react";
+import { RegisterPetForm } from "./register-pet-form";
 
 export class PetsPage extends Component<any, any> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isModalOpen: false,
+    };
+  }
+  openModal = () => {
+    this.setState({ isModalOpen: true });
+  };
+  closeModal = () => {
+    this.setState({ isModalOpen: false });
+  };
   render() {
     return (
       <>
-        <Button color="default">Adicionar Pet</Button>
+        <Button color="default" onClick={this.openModal}>
+          Adicionar Pet
+        </Button>
         <Table selectionMode="single" shadow="md">
           <TableHeader>
             <TableColumn>ID do Dono</TableColumn>
@@ -43,6 +58,10 @@ export class PetsPage extends Component<any, any> {
             </TableRow>
           </TableBody>
         </Table>
+        <RegisterPetForm
+          isOpen={this.state.isModalOpen}
+          isClosed={this.closeModal}
+        />
       </>
     );
   }
