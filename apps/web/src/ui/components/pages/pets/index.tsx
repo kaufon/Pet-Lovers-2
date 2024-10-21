@@ -20,24 +20,30 @@ export class PetsPage extends Component<any, any> {
     this.state = {
       isModalOpen: false,
       isAlertModalOpen: false,
+      isRegister: true, // Default to true for registering
     };
   }
-  openModal = () => {
-    this.setState({ isModalOpen: true });
+
+  openModal = (isRegister = true) => {
+    this.setState({ isModalOpen: true, isRegister });
   };
+
   openAlertModal = () => {
     this.setState({ isAlertModalOpen: true });
   };
+
   closeAlertModal = () => {
     this.setState({ isAlertModalOpen: false });
   };
+
   closeModal = () => {
     this.setState({ isModalOpen: false });
   };
+
   render() {
     return (
       <>
-        <Button color="default" onClick={this.openModal}>
+        <Button color="default" onClick={() => this.openModal(true)}>
           Adicionar Pet
         </Button>
         <Table selectionMode="single" shadow="md">
@@ -58,8 +64,8 @@ export class PetsPage extends Component<any, any> {
               <TableCell>Cachorro</TableCell>
               <TableCell>
                 <div className="flex flex-row gap-3 text-zinc-400">
-                  <Tooltip content="Editar  ">
-                    <Pen />
+                  <Tooltip content="Editar">
+                    <Pen onClick={() => this.openModal(false)} /> 
                   </Tooltip>
                   <Tooltip content="Deletar">
                     <Trash onClick={this.openAlertModal} />
@@ -72,6 +78,7 @@ export class PetsPage extends Component<any, any> {
         <RegisterPetForm
           isOpen={this.state.isModalOpen}
           isClosed={this.closeModal}
+          isRegister={this.state.isRegister} 
         />
         <AlertModal
           isOpen={this.state.isAlertModalOpen}
@@ -81,3 +88,4 @@ export class PetsPage extends Component<any, any> {
     );
   }
 }
+
