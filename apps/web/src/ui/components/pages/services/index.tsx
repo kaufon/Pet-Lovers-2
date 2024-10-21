@@ -20,19 +20,20 @@ export class ServicesPage extends Component<any, any> {
     this.state = {
       isModalOpen: false,
       isAlertModalOpen: false,
+      isRegister: true, 
     };
   }
 
-  // Open and close modals
   closeModal = () => {
     this.setState({
       isModalOpen: false,
     });
   };
 
-  openModal = () => {
+  openModal = (isRegister = true) => { 
     this.setState({
       isModalOpen: true,
+      isRegister, 
     });
   };
 
@@ -47,7 +48,7 @@ export class ServicesPage extends Component<any, any> {
   render() {
     return (
       <>
-        <Button color="default" onClick={this.openModal}>
+        <Button color="default" onClick={() => this.openModal(true)}>
           Adicionar Serviço
         </Button>
         <Table selectionMode="single" shadow="md">
@@ -65,7 +66,7 @@ export class ServicesPage extends Component<any, any> {
               <TableCell>
                 <div className="flex flex-row gap-3 text-zinc-400">
                   <Tooltip content="Editar  ">
-                    <Pen />
+                    <Pen onClick={() => this.openModal(false)} /> 
                   </Tooltip>
                   <Tooltip content="Deletar">
                     <Trash onClick={this.openAlertModal} />
@@ -78,6 +79,7 @@ export class ServicesPage extends Component<any, any> {
         <RegisterServiceForm
           isOpen={this.state.isModalOpen}
           isClosed={this.closeModal}
+          isRegister={this.state.isRegister} 
         />
         <AlertModal
           isOpen={this.state.isAlertModalOpen}
