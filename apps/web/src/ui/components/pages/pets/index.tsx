@@ -9,19 +9,27 @@ import {
   TableRow,
   Tooltip,
 } from "@nextui-org/react";
-import { Pen } from "lucide-react";
+import { Pen, Trash } from "lucide-react";
 import { Component } from "react";
 import { RegisterPetForm } from "./register-pet-form";
+import { AlertModal } from "../../commons/alert-modal";
 
 export class PetsPage extends Component<any, any> {
   constructor(props) {
     super(props);
     this.state = {
       isModalOpen: false,
+      isAlertModalOpen: false,
     };
   }
   openModal = () => {
     this.setState({ isModalOpen: true });
+  };
+  openAlertModal = () => {
+    this.setState({ isAlertModalOpen: true });
+  };
+  closeAlertModal = () => {
+    this.setState({ isAlertModalOpen: false });
   };
   closeModal = () => {
     this.setState({ isModalOpen: false });
@@ -53,6 +61,9 @@ export class PetsPage extends Component<any, any> {
                   <Tooltip content="Editar  ">
                     <Pen />
                   </Tooltip>
+                  <Tooltip content="Deletar">
+                    <Trash onClick={this.openAlertModal} />
+                  </Tooltip>
                 </div>
               </TableCell>
             </TableRow>
@@ -61,6 +72,10 @@ export class PetsPage extends Component<any, any> {
         <RegisterPetForm
           isOpen={this.state.isModalOpen}
           isClosed={this.closeModal}
+        />
+        <AlertModal
+          isOpen={this.state.isAlertModalOpen}
+          isClosed={this.closeAlertModal}
         />
       </>
     );
